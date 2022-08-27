@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import { useProvider } from "../../context/provider";
-
+import { useStockProvider } from "../../context/stock_provider";
 import {
   Container,
   Grid,
@@ -13,11 +11,13 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function Exchange() {
   const [value, setValue] = useState("");
-  const { setExchange } = useProvider();
+  const { setExchange } = useStockProvider();
   const dropdown = ["nasdaq_constituent", "dowjones_constituent"];
 
-  const handleselect = () => {};
-console.log('rebuilding')
+  const handleselect = () => {
+    setExchange(value);
+  };
+  // console.log("rebuilding");
   return (
     <div>
       <Container maxWidth="lg">
@@ -34,12 +34,12 @@ console.log('rebuilding')
                 disablePortal
                 id="combo-box-demo"
                 options={dropdown}
-                sx={{ width: 200, height: 10 }}
+                sx={{ width: 220, height: 10 }}
                 onChange={(event, newValue) => {
-                  setExchange(newValue);
+                  setValue(newValue);
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Select Constituent" />
+                  <TextField {...params} label="Select Market Indexes" />
                 )}
               />
             </Grid>
