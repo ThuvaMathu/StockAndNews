@@ -7,6 +7,7 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import AppProvider from "./context/provider";
 import Exchange from "./components/stocks/exchange";
 import Symbols from "./components/stocks/symbols";
+import News from "./components/news/main-news";
 function appBarLabel(label) {
   return (
     <Toolbar>
@@ -28,6 +29,7 @@ export default function App() {
           {appBarLabel("Research & Invest")}
         </AppBar>
         <Exchange/>
+        <News />
         <Symbols/>
       </AppProvider>
     </div>
