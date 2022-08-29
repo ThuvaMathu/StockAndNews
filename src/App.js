@@ -10,6 +10,7 @@ import Symbols from "./components/stocks/symbols";
 import Mainstock from "./components/stocks/main_stock";
 import News from "./components/news/main-news";
 import { ToastContainer } from "react-toastify";
+import Main from "./components/main/main";
 function appBarLabel(label) {
   return (
     <Toolbar>
@@ -30,19 +31,11 @@ export default function App() {
         <AppBar position="static" color="primary">
           {appBarLabel("Research & Invest")}
         </AppBar>
-        <Mainstock />
-        <News />
+        {/* <Mainstock />
+        <News /> */}
+        <Main/>
       </AppProvider>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={8000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        draggable={false}
-        pauseOnVisibilityChange
-        closeOnClick
-        pauseOnHover
-      /> */}
+    
     </div>
   );
 }

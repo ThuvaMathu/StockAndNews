@@ -4,14 +4,16 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [stockData, setStockData] = useState([]);
-  const [exchange, setExchange] = useState()
+  const [exchange, setExchange] = useState();
+  const [keyWord, setKeyWord] = useState("");
+  const [value, setValue] = useState(null);
   return (
     <AppContext.Provider
       value={{
-        stockData,
-        setStockData,
-        exchange,
-        setExchange,
+        keyWord,
+        setKeyWord,
+        value,
+        setValue,
       }}
     >
       {children}

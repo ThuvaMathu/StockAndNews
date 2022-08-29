@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useStockProvider } from "../../context/stock_provider";
+import { useProvider } from "../../context/provider";
+
 import {
   Container,
   Grid,
@@ -65,7 +67,8 @@ function TableHeader(props) {
 }
 
 export default function Symbols(props) {
-  const { exchange, stockSymbol, setStockSymbol } = useStockProvider();
+  const { exchange, setStockSymbol } = useStockProvider();
+  const { setKeyWord, setValue } = useProvider();
 
   const [rowdata, setRowdata] = useState();
   const [showdata, setShowdata] = useState([
@@ -142,7 +145,7 @@ export default function Symbols(props) {
     //console.log(exchange, "rebuild");
     if (exchange != null) {
       setEmptyex(false);
-      //getdata(exchange);
+      getdata(exchange);
     } else {
       setLoading(false);
       setEmptyex(true);
@@ -219,6 +222,8 @@ export default function Symbols(props) {
   };
   const handleTap = (params) => {
     setStockSymbol(params.symbol);
+    setKeyWord(params.symbol);
+    setValue(params.symbol);
     console.log(params);
   };
   if (loading) {
@@ -248,9 +253,9 @@ export default function Symbols(props) {
   }
   return (
     <>
-      <div>
+      <div style={{ marginBottom: 10 }}>
         <Container sx={{ marginBottom: 1 }}>
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="left">
             <Grid item>
               <TextField
                 id="outlined-basic"
@@ -263,8 +268,8 @@ export default function Symbols(props) {
             </Grid>
           </Grid>
         </Container>
-        <Grid container justifyContent="center">
-          <Paper sx={{ Width: "auto" }}>
+        <Grid container justifyContent="left">
+          <Paper sx={{ Width: "100%" }}>
             <TableContainer component={Paper} sx={{ maxHeight: "700px" }}>
               <Table stickyHeader size="small">
                 <TableHeader

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useStockProvider } from "../../context/stock_provider";
+import { useProvider } from "../../context/provider";
 import {
   Container,
   Grid,
@@ -8,13 +8,18 @@ import {
   Autocomplete,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-export default function Exchange() {
-  const [value, setValue] = useState(null);
-  const { setExchange } = useStockProvider();
+import InputAdornment from "@mui/material/InputAdornment";
+
+export default function SearchBar() {
+  // const [value, setValue] = useState(null);
+  const { setKeyWord, value, setValue } = useProvider();
   const dropdown = ["nasdaq_constituent", "dowjones_constituent"];
 
   const handleselect = () => {
-    setExchange(value);
+    setKeyWord(value);
+  };
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
   // console.log("rebuilding");
   return (
@@ -28,18 +33,22 @@ export default function Exchange() {
             spacing={3}
           >
             <Grid item>
-              <Autocomplete
-                size="small"
-                disablePortal
-                id="combo-box-demo"
-                options={dropdown}
-                sx={{ width: 220, height: 10, marginTop: 1 }}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Search news by keyWord"
+                variant="outlined"
+                value={value}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
                 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Select Market Indexes" />
-                )}
+                onChange={(event) => {
+                  console.log(event.target.value);
+                  setValue(event.target.value);
+                }}
               />
             </Grid>
             <Grid item>
@@ -49,10 +58,9 @@ export default function Exchange() {
                 variant="contained"
                 size="small"
                 color="secondary"
-                className="history-button"
                 onClick={() => handleselect()}
               >
-                <SearchIcon /> View Symbols
+                <SearchIcon /> Search
               </Button>
             </Grid>
           </Grid>

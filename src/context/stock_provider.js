@@ -4,7 +4,7 @@ const StockContext = createContext();
 
 const StockProvider = ({ children }) => {
   const [stockSymbol, setStockSymbol] = useState("AAPL");
-  const [exchange, setExchange] = useState(null);
+  const [exchange, setExchange] = useState("nasdaq_constituent");
   return (
     <StockContext.Provider
       value={{

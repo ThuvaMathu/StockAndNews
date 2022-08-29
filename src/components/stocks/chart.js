@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useStockProvider } from "../../context/stock_provider";
 import axios from "axios";
 import { Grid, Paper, Typography } from "@mui/material";
-import LoadingContainer from "../common/loading_container";
 
 export default function Chart() {
   const [value, setValue] = useState();
@@ -10,7 +9,7 @@ export default function Chart() {
   const [periodValue, setPeriodValue] = useState("1Y");
   const pierods = ["1d", "1M", "3M", "1Y", "5Y", "all"];
   const { stockSymbol } = useStockProvider();
-  const handleselect = () => {
+  const getChart = () => {
     setLoading(true);
     const options = {
       method: "GET",
@@ -45,7 +44,7 @@ export default function Chart() {
       });
   };
   useEffect(() => {
-    handleselect();
+    getChart();
   }, [stockSymbol, periodValue]);
   return (
     <div>
