@@ -64,74 +64,77 @@ export default function SymbolDetails() {
     );
   }
   return (
-    <Paper
-      sx={{
-        p: 2,
-        margin: "auto",
-        Width: "auto",
-        flexGrow: 2,
-      }}
-    >
-      <Grid container>
-        <Grid item>
-          <ButtonBase
-            sx={{ width: 128, height: 128, p: 3 }}
-            onClick={() => {
-              window.open(infoData.weburl, "_blank");
-            }}
-          >
-            <Img alt="complex" src={infoData.logo} sx={{}} />
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant="body1" component="div">
-                {infoData.ticker}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}> Name:</span>
-                {infoData.name}
-              </Typography>
-              <Typography variant="body2">
-                <span style={{ fontWeight: "bold" }}>Currency: </span>
-                {infoData.currency}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}>Current price: </span>
-                {priceData.c}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}>Open price: </span>
-                {priceData.o}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}> High: </span>
-                {priceData.h}
-              </Typography>
+    <div style={{ marginBottom: "100px" }}>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          Width: "auto",
+        }}
+      >
+        <Grid container>
+          <Grid item>
+            <ButtonBase
+              sx={{ width: 128, height: 128, p: 3 }}
+              onClick={() => {
+                window.open(infoData.weburl, "_blank");
+              }}
+            >
+              <Img alt="complex" src={infoData.logo} sx={{}} />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="body1" component="div">
+                  {infoData.ticker}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}> Name:</span>
+                  {infoData.name}
+                </Typography>
+                <Typography variant="body2">
+                  <span style={{ fontWeight: "bold" }}>Currency: </span>
+                  {infoData.currency}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>Current price: </span>
+                  {priceData.c}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>Open price: </span>
+                  {priceData.o}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}> High: </span>
+                  {priceData.h}
+                </Typography>
 
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}> low:</span>
-                {priceData.l}
-              </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}> low:</span>
+                  {priceData.l}
+                </Typography>
 
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}>Percentage change: </span>
-                {priceData.pc}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                <span style={{ fontWeight: "bold" }}>Total volume:</span>
-                {priceData.t}
-              </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>
+                    Percentage change:{" "}
+                  </span>
+                  {priceData.pc}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>Total volume:</span>
+                  {priceData.t}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
+          <Grid item>
+            <Box sx={{ width: 400, height: 180 }}>
+              <Chart />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Box sx={{ width: 400, height: 180 }}>
-            <Chart />
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </div>
   );
 }

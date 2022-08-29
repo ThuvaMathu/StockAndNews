@@ -24,7 +24,7 @@ export default function SearchBar() {
   // console.log("rebuilding");
   return (
     <div>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" xs={{ marginY: 1 }}>
         <Container className="qoute-container" sx={{ padding: 2 }}>
           <Grid
             container

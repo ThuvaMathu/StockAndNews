@@ -145,6 +145,8 @@ export default function Symbols(props) {
     //console.log(exchange, "rebuild");
     if (exchange != null) {
       setEmptyex(false);
+      //setLoading(false);
+
       getdata(exchange);
     } else {
       setLoading(false);
@@ -208,17 +210,17 @@ export default function Symbols(props) {
 
   const searchSymbol = (searchedSymbol) => {
     setsearchs(searchedSymbol);
-    // const filteredRows = rowdata.filter((row) => {
-    //   return row.symbol
-    //     .toString()
-    //     .toLowerCase()
-    //     .includes(searchedSymbol.toString().toLowerCase());
-    // });
-    // if (searchedSymbol.length < 1) {
-    //   setShowdata(rowdata);
-    // } else {
-    //   setShowdata(filteredRows);
-    // }
+    const filteredRows = rowdata.filter((row) => {
+      return row.symbol
+        .toString()
+        .toLowerCase()
+        .includes(searchedSymbol.toString().toLowerCase());
+    });
+    if (searchedSymbol.length < 1) {
+      setShowdata(rowdata);
+    } else {
+      setShowdata(filteredRows);
+    }
   };
   const handleTap = (params) => {
     setStockSymbol(params.symbol);

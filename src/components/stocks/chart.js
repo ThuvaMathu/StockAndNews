@@ -66,7 +66,13 @@ export default function Chart() {
           </Typography>
         </Grid>
       ) : (
-        <img alt="data" src={value} style={{ height: "auto", width: 400 }} />
+        <Paper
+          onClick={() => {
+            window.open(value, "_blank");
+          }}
+        >
+          <img alt="data" src={value} style={{ height: "auto", width: 400 }} />
+        </Paper>
       )}
     </div>
   );
