@@ -8,18 +8,24 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useStockProvider } from "../../context/stock_provider";
-import { Container, Grid, TableSortLabel, TextField } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import {
+  Container,
+  Grid,
+  TableSortLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spaceimg from "../../assets/swr.png";
 import { visuallyHidden } from "@mui/utils";
 import { styled } from "@mui/material/styles";
+import LoadingContainer from "../common/loading_container";
 const columns = [
-  { id: "symbol", label: "Symbol", minWidth: 100 },
-  { id: "name", label: "Company Name", minWidth: 100 },
-  { id: "sector", label: "Industry", minWidth: 100 },
+  { id: "symbol", label: "Symbol", minWidth: 80 },
+  { id: "name", label: "Company Name", minWidth: 80 },
+  { id: "sector", label: "Industry", minWidth: 80 },
 ];
 
 function TableHeader(props) {
@@ -59,7 +65,7 @@ function TableHeader(props) {
 }
 
 export default function Symbols(props) {
-  const { exchange } = useStockProvider();
+  const { exchange, stockSymbol, setStockSymbol } = useStockProvider();
 
   const [rowdata, setRowdata] = useState();
   const [showdata, setShowdata] = useState([
@@ -136,7 +142,7 @@ export default function Symbols(props) {
     //console.log(exchange, "rebuild");
     if (exchange != null) {
       setEmptyex(false);
-      getdata(exchange);
+      //getdata(exchange);
     } else {
       setLoading(false);
       setEmptyex(true);
@@ -199,38 +205,24 @@ export default function Symbols(props) {
 
   const searchSymbol = (searchedSymbol) => {
     setsearchs(searchedSymbol);
-    // toast.dismiss();
-
     // const filteredRows = rowdata.filter((row) => {
     //   return row.symbol
     //     .toString()
     //     .toLowerCase()
     //     .includes(searchedSymbol.toString().toLowerCase());
     // });
-    // if (filteredRows.length <= 0) {
-    //   //console.log(filteredRows.length, " no data found");
-    //   toast.warn("No stocks could be found for your search");
-    // }
     // if (searchedSymbol.length < 1) {
     //   setShowdata(rowdata);
     // } else {
     //   setShowdata(filteredRows);
     // }
   };
-
+  const handleTap = (params) => {
+    setStockSymbol(params.symbol);
+    console.log(params);
+  };
   if (loading) {
-    return (
-      <>
-        <div className="center-loading">
-          <div className="loading-container">
-            <Box sx={{ display: "flex" }}>
-              {" "}
-              <CircularProgress color="secondary" />{" "}
-            </Box>
-          </div>
-        </div>
-      </>
-    );
+    return <LoadingContainer />;
   }
   if (emptyex) {
     return (
@@ -248,7 +240,6 @@ export default function Symbols(props) {
       <>
         <div className="center-loading">
           <div className="error-container">
-            <h4>{exchange}</h4>
             <img alt="..." src={spaceimg} className="errorimg" />
           </div>
         </div>
@@ -258,13 +249,8 @@ export default function Symbols(props) {
   return (
     <>
       <div>
-        <Container sx={{ marginY: 1 }}>
-          <Grid
-            container
-            justifyContent="left"
-            className="quote-search"
-            spacing={3}
-          >
+        <Container sx={{ marginBottom: 1 }}>
+          <Grid container justifyContent="center">
             <Grid item>
               <TextField
                 id="outlined-basic"
@@ -277,47 +263,65 @@ export default function Symbols(props) {
             </Grid>
           </Grid>
         </Container>
-
-        <Paper sx={{ maxWidth: 500 }}>
-          <TableContainer component={Paper} sx={{ maxHeight: "700px" }}>
-            <Table stickyHeader size="small">
-              <TableHeader
-                order={order}
-                orderBy={orderBy}
-                onRequestSort={handleRequestSort}
-                rowCount={showdata.length}
-              />
-              <TableBody>
-                {stableSort(showdata, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <StyledTableRow
-                        hover
-                        tabIndex={-1}
-                        key={row.symbol}
-                        className="quote-tablecell"
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return <TableCell key={column.id}>{value}</TableCell>;
-                        })}
-                      </StyledTableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25, 100]}
-            component="div"
-            count={showdata.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
+        <Grid container justifyContent="center">
+          <Paper sx={{ Width: "auto" }}>
+            <TableContainer component={Paper} sx={{ maxHeight: "700px" }}>
+              <Table stickyHeader size="small">
+                <TableHeader
+                  order={order}
+                  orderBy={orderBy}
+                  onRequestSort={handleRequestSort}
+                  rowCount={showdata.length}
+                />
+                {showdata.length > 0 ? (
+                  <TableBody>
+                    {stableSort(showdata, getComparator(order, orderBy))
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <StyledTableRow
+                            hover
+                            tabIndex={-1}
+                            key={row.symbol}
+                            onClick={() => handleTap(row)}
+                          >
+                            {columns.map((column) => {
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} onClick={() => {}}>
+                                  {value}
+                                </TableCell>
+                              );
+                            })}
+                            <TableCell></TableCell>
+                          </StyledTableRow>
+                        );
+                      })}
+                  </TableBody>
+                ) : (
+                  <TableBody>
+                    <TableCell textAlign="center">
+                      <Typography variant="body1"></Typography>
+                      <p>No data Found</p>
+                    </TableCell>
+                  </TableBody>
+                )}
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 100]}
+              component="div"
+              count={showdata.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Grid>
 
         <ToastContainer
           position="top-right"

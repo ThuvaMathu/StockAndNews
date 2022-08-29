@@ -9,6 +9,7 @@ import Exchange from "./components/stocks/exchange";
 import Symbols from "./components/stocks/symbols";
 import Mainstock from "./components/stocks/main_stock";
 import News from "./components/news/main-news";
+import { ToastContainer } from "react-toastify";
 function appBarLabel(label) {
   return (
     <Toolbar>
@@ -32,6 +33,16 @@ export default function App() {
         <Mainstock />
         <News />
       </AppProvider>
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggable={false}
+        pauseOnVisibilityChange
+        closeOnClick
+        pauseOnHover
+      /> */}
     </div>
   );
 }

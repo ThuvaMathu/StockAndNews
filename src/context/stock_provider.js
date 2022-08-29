@@ -3,13 +3,13 @@ import React, { createContext, useContext, useState } from "react";
 const StockContext = createContext();
 
 const StockProvider = ({ children }) => {
-  const [stockData, setStockData] = useState([]);
+  const [stockSymbol, setStockSymbol] = useState("AAPL");
   const [exchange, setExchange] = useState(null);
   return (
     <StockContext.Provider
       value={{
-        stockData,
-        setStockData,
+        stockSymbol,
+        setStockSymbol,
         exchange,
         setExchange,
       }}

@@ -10,7 +10,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function Exchange() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(null);
   const { setExchange } = useStockProvider();
   const dropdown = ["nasdaq_constituent", "dowjones_constituent"];
 
@@ -34,7 +34,7 @@ export default function Exchange() {
                 disablePortal
                 id="combo-box-demo"
                 options={dropdown}
-                sx={{ width: 220, height: 10 }}
+                sx={{ width: 220, height: 10, marginTop: 1 }}
                 onChange={(event, newValue) => {
                   setValue(newValue);
                 }}
@@ -45,7 +45,7 @@ export default function Exchange() {
             </Grid>
             <Grid item>
               <Button
-                sx={{ width: 150, height: 40 }}
+                sx={{ width: 150, height: 40, marginTop: 1 }}
                 type="button"
                 variant="contained"
                 size="small"
