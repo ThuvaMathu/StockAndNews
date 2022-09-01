@@ -49,7 +49,6 @@ export default function Exchange() {
                 variant="contained"
                 size="small"
                 color="secondary"
-                className="history-button"
                 onClick={() => handleselect()}
               >
                 <SearchIcon /> View Symbols

@@ -224,8 +224,8 @@ export default function Symbols(props) {
   };
   const handleTap = (params) => {
     setStockSymbol(params.symbol);
-    setKeyWord(params.symbol);
-    setValue(params.symbol);
+    //setKeyWord(params.symbol);
+    //setValue(params.symbol);
     console.log(params);
   };
   if (loading) {

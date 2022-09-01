@@ -25,7 +25,7 @@ export default function NewsTable() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { keyWord } = useProvider();
   const [rowData, setRowData] = useState([]);
-  console.log(keyWord, "rebiuld mews");
+  //console.log(keyWord, "rebiuld mews");
   useEffect(() => {
     if (keyWord == "") {
       getNews("stock");
@@ -69,7 +69,7 @@ export default function NewsTable() {
 
   return (
     <Paper sx={{ width: "100%" }}>
-      <TableContainer sx={{ maxHeight: 460 }}>
+      <TableContainer sx={{ maxHeight: 450 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableBody>
             {rowData

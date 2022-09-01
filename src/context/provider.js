@@ -3,10 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const [stockData, setStockData] = useState([]);
-  const [exchange, setExchange] = useState();
   const [keyWord, setKeyWord] = useState("");
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
   return (
     <AppContext.Provider
       value={{

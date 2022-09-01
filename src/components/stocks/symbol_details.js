@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import { useStockProvider } from "../../context/stock_provider";
+import { useProvider } from "../../context/provider";
 import { ButtonBase, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { toast } from "react-toastify";
@@ -22,6 +23,8 @@ export default function SymbolDetails() {
   const [priceData, setPriceData] = useState();
 
   const { stockSymbol } = useStockProvider();
+  const { setValue } = useProvider();
+
   const API_KEY = "c96jtgqad3icjtt5skjg";
 
   function getData(params) {
@@ -36,6 +39,13 @@ export default function SymbolDetails() {
         setLoading(false);
         setPriceData(data2);
         setInfoData(data1);
+        setValue([
+          data1.ticker,
+          data1.name,
+          data1.exchange,
+          data1.country,
+          data1.currency,
+        ]);
       })
       .catch(() => {
         setShowerror(true);
